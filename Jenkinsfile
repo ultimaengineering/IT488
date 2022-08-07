@@ -1,5 +1,4 @@
 pipeline {
-  triggers { cron('H H(14-21)   H(1-5)') }
   agent {
     kubernetes {
       yamlFile 'KubernetesBuilder.yaml'
