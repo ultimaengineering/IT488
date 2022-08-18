@@ -7,6 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
+RUN ls -la
 COPY ["Inventory-Tracker/Inventory-Tracker.csproj", "Inventory-Tracker/"]
 RUN dotnet restore "Inventory-Tracker/Inventory-Tracker.csproj"
 COPY . .
