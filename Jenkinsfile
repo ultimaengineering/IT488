@@ -10,7 +10,7 @@ pipeline {
 	checkout scm
         container('kaniko') {
           sh 'ulimit -n 10000'
-          sh 'kanikoexecutor -f Dockerfile --destination=docker.ultimaengineering.iojenkins-masterlatest'
+          sh '/kaniko/executor -f Dockerfile --destination=docker.ultimaengineering.io/it488-project:${BRANCH_NAME}-${BUILD_NUMBER}'
         }
       }
     }
