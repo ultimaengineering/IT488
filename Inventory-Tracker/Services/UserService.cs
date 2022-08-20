@@ -1,4 +1,6 @@
-﻿using Inventory_Tracker.Entities;
+﻿using System.Collections;
+using Inventory_Tracker.DAL;
+using Inventory_Tracker.Entities;
 using Inventory_Tracker.Helpers;
 using Inventory_Tracker.Models;
 
@@ -26,10 +28,12 @@ namespace Inventory_Tracker.Services
     };
 
         private readonly AppSettings _appSettings;
+        private readonly UsersContext _context;
 
-        public UserService(IOptions<AppSettings> appSettings)
+        public UserService(IOptions<AppSettings> appSettings, UsersContext context)
         {
             _appSettings = appSettings.Value;
+            _context = context;
         }
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
@@ -47,7 +51,22 @@ namespace Inventory_Tracker.Services
 
         public IEnumerable<User> GetAll()
         {
-            return _users;
+            IEnumerable <User> users;
+            List<User> table = new List<User>();
+            using (var context = _context)
+            {
+                context.Add(new User
+                {
+                    Id = 222,
+                    FirstName = "Test",
+                    LastName = "Test",
+                    Username = "Test",
+                    Password = "Test"
+                });
+                context.SaveChanges();
+                table = context.Users.Select(x => x).ToList();
+            }
+            return table;
         }
 
         public User GetById(int id)

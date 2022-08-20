@@ -1,3 +1,4 @@
+using Inventory_Tracker.DAL;
 using Inventory_Tracker.Helpers;
 using Inventory_Tracker.Services;
 
@@ -13,7 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 // configure DI for application services
 builder.Services.AddScoped<IUserService, UserService>();
-
+builder.Services.AddDbContext<UsersContext>();
 
 var app = builder.Build();
 

@@ -1,0 +1,10 @@
+C:\Users\alexa\Code\IT488\school-db\bin\Debug\school-db.dacpac
+C:\Users\alexa\Code\IT488\school-db\bin\Debug\school_db.dll
+C:\Users\alexa\Code\IT488\school-db\bin\Debug\school_db.pdb
+C:\Users\alexa\Code\IT488\school-db\obj\Debug\school-db.sqlproj.AssemblyReference.cache
+C:\Users\alexa\Code\IT488\school-db\obj\Debug\school_db.dll
+C:\Users\alexa\Code\IT488\school-db\obj\Debug\school_db.pdb
+C:\Users\alexa\Code\IT488\school-db\obj\Debug\Model.xml
+C:\Users\alexa\Code\IT488\school-db\obj\Debug\refactor.xml
+C:\Users\alexa\Code\IT488\school-db\obj\Debug\postdeploy.sql
+C:\Users\alexa\Code\IT488\school-db\obj\Debug\predeploy.sql
