@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory-Tracker", "Inventory-Tracker\Inventory-Tracker.csproj", "{F56C7A28-09BF-4F23-9912-A94433782C8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory-Tracker", "Inventory-Tracker\Inventory-Tracker.csproj", "{F56C7A28-09BF-4F23-9912-A94433782C8B}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "school-db", "school-db\school-db.sqlproj", "{E924B6BA-2E76-4E55-820C-25B50AEDBC70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,12 @@ Global
 		{F56C7A28-09BF-4F23-9912-A94433782C8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F56C7A28-09BF-4F23-9912-A94433782C8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F56C7A28-09BF-4F23-9912-A94433782C8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E924B6BA-2E76-4E55-820C-25B50AEDBC70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E924B6BA-2E76-4E55-820C-25B50AEDBC70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E924B6BA-2E76-4E55-820C-25B50AEDBC70}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E924B6BA-2E76-4E55-820C-25B50AEDBC70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E924B6BA-2E76-4E55-820C-25B50AEDBC70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E924B6BA-2E76-4E55-820C-25B50AEDBC70}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
