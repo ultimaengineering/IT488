@@ -20,9 +20,21 @@ public class UsersController : ControllerBase
     public IActionResult Authenticate(AuthenticateRequest model)
     {
         var response = _userService.Authenticate(model);
-
         if (response == null)
+        {
             return BadRequest(new { message = "Username or password is incorrect" });
+        }
+        return Ok(response);
+    }
+
+    [HttpPost]
+    public IActionResult CreateUser([FromBody] UserCreationRequest model)
+    {
+        var response = _userService.CreateUser(model);
+        if (response == null)
+        {
+            return BadRequest("Unable to process your request at this time.");
+        }
 
         return Ok(response);
     }

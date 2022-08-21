@@ -3,10 +3,11 @@ using Inventory_Tracker.DAL;
 using Inventory_Tracker.Entities;
 using Inventory_Tracker.Helpers;
 using Inventory_Tracker.Models;
+using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace Inventory_Tracker.Services
 {
-
+    using BCrypt.Net;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
     using System.IdentityModel.Tokens.Jwt;
@@ -16,36 +17,33 @@ namespace Inventory_Tracker.Services
     {
         AuthenticateResponse Authenticate(AuthenticateRequest model);
         IEnumerable<User> GetAll();
-        User GetById(int id);
+        User GetById(Guid id);
+        User CreateUser(UserCreationRequest model);
     }
 
     public class UserService : IUserService
     {
-        // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-        private List<User> _users = new List<User>
-    {
-        new User { Id = 1, FirstName = "Test", LastName = "User", Username = "test", Password = "test" }
-    };
-
         private readonly AppSettings _appSettings;
         private readonly UsersContext _context;
+        private readonly ILogger _logger;
 
-        public UserService(IOptions<AppSettings> appSettings, UsersContext context)
+        public UserService(IOptions<AppSettings> appSettings, UsersContext context, ILogger<UserService> logger)
         {
             _appSettings = appSettings.Value;
             _context = context;
+            _logger = logger;
         }
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
-
+            User? user = _context.Users.First(x => x.Password == model.Username);
             // return null if user not found
-            if (user == null) return null;
-
+            if (user == null || !BCrypt.EnhancedVerify(model.Password, user.Password, hashType: HashType.SHA384))
+            {
+                return null;
+            }
             // authentication successful so generate jwt token
-            var token = generateJwtToken(user);
-
+                var token = generateJwtToken(user);
             return new AuthenticateResponse(user, token);
         }
 
@@ -53,27 +51,40 @@ namespace Inventory_Tracker.Services
         {
             IEnumerable <User> users;
             List<User> table = new List<User>();
-            using (var context = _context)
-            {
-                context.Add(new User
-                {
-                    Id = 222,
-                    FirstName = "Test",
-                    LastName = "Test",
-                    Username = "Test",
-                    Password = "Test"
-                });
-                context.SaveChanges();
-                table = context.Users.Select(x => x).ToList();
-            }
+            table = _context.Users.Select(x => x).ToList();
             return table;
         }
 
-        public User GetById(int id)
+        public User GetById(Guid id)
         {
-            return _users.FirstOrDefault(x => x.Id == id);
+            User user = null;
+            user = _context.Users.FirstOrDefault(x => x.Id == id);
+            return user;
         }
 
+        public User CreateUser(UserCreationRequest model)
+        {
+            User user = default;
+            try 
+            {
+                user = new User 
+                {
+                    Username = model.Username,
+                    Password = BCryptNet.EnhancedHashPassword(model.Password, hashType: HashType.SHA384),
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                };
+
+                _context.Add(user);
+                _context.SaveChanges();
+            }
+            catch(Exception exception)
+            {
+                _logger.LogError("Unable to continue with creation {}", exception);
+                return null;
+            }
+            return user;
+        }
         // helper methods
 
         private string generateJwtToken(User user)
