@@ -24,10 +24,10 @@ namespace Inventory_Tracker.Services
     public class UserService : IUserService
     {
         private readonly AppSettings _appSettings;
-        private readonly UsersContext _context;
+        private readonly DbContext _context;
         private readonly ILogger _logger;
 
-        public UserService(IOptions<AppSettings> appSettings, UsersContext context, ILogger<UserService> logger)
+        public UserService(IOptions<AppSettings> appSettings, DbContext context, ILogger<UserService> logger)
         {
             _appSettings = appSettings.Value;
             _context = context;
@@ -36,7 +36,7 @@ namespace Inventory_Tracker.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            User? user = _context.Users.First(x => x.Password == model.Username);
+            User? user = _context.Users.First(x => x.Username == model.Username);
             // return null if user not found
             if (user == null || !BCrypt.EnhancedVerify(model.Password, user.Password, hashType: HashType.SHA384))
             {

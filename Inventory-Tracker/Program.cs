@@ -14,7 +14,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 // configure DI for application services
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddDbContext<UsersContext>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddDbContext<global::Inventory_Tracker.DAL.DbContext>();
 
 var app = builder.Build();
 
