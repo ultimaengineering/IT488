@@ -1,0 +1,22 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       [dbo].[users]
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       The type for column Id in table [dbo].[users] is currently  BIGINT NOT NULL but is being changed to  INT NOT NULL. Data
+         loss could occur and deployment may fail if the column contains data that is incompatible with type  INT NOT NULL.
+
+** User actions
+     Table rebuild
+       [dbo].[users] (Table)
+
+** Supporting actions
+     Create
+       [dbo].[users].[IX_Username] (Index)
+
+The compatibility level of the target schema 160 is not supported, which may result in undefined behavior. Please upgrade to a later version which supports this compatibility level.
+The type for column Id in table [dbo].[users] is currently  BIGINT NOT NULL but is being changed to  INT NOT NULL. Data loss could occur and deployment may fail if the column contains data that is incompatible with type  INT NOT NULL.
+
