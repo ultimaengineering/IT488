@@ -16,6 +16,8 @@ namespace Inventory_Tracker.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<Inventory> Inventory { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             // connect to sql server with connection string from app settings
