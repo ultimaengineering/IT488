@@ -9,4 +9,6 @@ namespace Inventory_Tracker.Models
         [Required]
         public String Description { get; set; }
     }
+
+
 }
