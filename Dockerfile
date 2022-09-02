@@ -6,6 +6,8 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+RUN dotnet tool install --global dotnet-sonarscanner
+RUN dotnet sonarscanner begin /k:"IT488" /d:sonar.host.url="https://sonarcube.ultimaengineering.io"  /d:sonar.login="9a8fd0cb67f74e916fc90cff70f53a4e145e5529"
 WORKDIR /src
 RUN ls -la
 COPY ["Inventory-Tracker/Inventory-Tracker.csproj", "Inventory-Tracker/"]
@@ -13,6 +15,7 @@ RUN dotnet restore "Inventory-Tracker/Inventory-Tracker.csproj"
 COPY . .
 WORKDIR "/src/Inventory-Tracker"
 RUN dotnet build "Inventory-Tracker.csproj" -c Release -o /app/build
+RUN dotnet sonarscanner end /d:sonar.login="9a8fd0cb67f74e916fc90cff70f53a4e145e5529"
 
 FROM build AS publish
 RUN dotnet publish "Inventory-Tracker.csproj" -c Release -o /app/publish
