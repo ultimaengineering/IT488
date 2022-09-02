@@ -7,6 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 RUN dotnet tool install --global dotnet-sonarscanner
+RUN export PATH="$PATH:/root/.dotnet/tools"
 RUN dotnet sonarscanner begin /k:"IT488" /d:sonar.host.url="https://sonarcube.ultimaengineering.io"  /d:sonar.login="9a8fd0cb67f74e916fc90cff70f53a4e145e5529"
 WORKDIR /src
 RUN ls -la
