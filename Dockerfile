@@ -15,7 +15,7 @@ RUN dotnet tool install --global dotnet-sonarscanner
 RUN dotnet tool install --global coverlet.console
 RUN dotnet sonarscanner begin /k:"IT488" /d:sonar.host.url="https://sonarcube.ultimaengineering.io"  /d:sonar.login="9a8fd0cb67f74e916fc90cff70f53a4e145e5529"
 
-COPY ["Inventory-Tracker/Inventory-Tracker.csproj", "Inventory-Tracker/"]
+COPY ["/src/Inventory-Tracker/Inventory-Tracker.csproj", "/src/Inventory-Tracker/"]
 # Restore NuGet packages
 RUN dotnet restore "Inventory-Tracker/Inventory-Tracker.csproj"
 COPY . .
