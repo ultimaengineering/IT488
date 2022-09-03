@@ -36,15 +36,23 @@ namespace Inventory_Tracker.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            User? user = _context.Users.First(x => x.Username == model.Username);
-            // return null if user not found
-            if (user == null || !BCrypt.EnhancedVerify(model.Password, user.Password, hashType: HashType.SHA384))
+            try
+            {
+                User? user = _context.Users.First(x => x.Username == model.Username);
+                // return null if user not found
+                if (!BCrypt.EnhancedVerify(model.Password, user.Password, hashType: HashType.SHA384))
+                {
+                    return null;
+                }
+
+                // authentication successful so generate jwt token
+                var token = generateJwtToken(user);
+                return new AuthenticateResponse(user, token);
+            }
+            catch (Exception ex)
             {
                 return null;
             }
-            // authentication successful so generate jwt token
-                var token = generateJwtToken(user);
-            return new AuthenticateResponse(user, token);
         }
 
         public IEnumerable<User> GetAll()
@@ -73,6 +81,7 @@ namespace Inventory_Tracker.Services
                     Password = BCryptNet.EnhancedHashPassword(model.Password, hashType: HashType.SHA384),
                     FirstName = model.FirstName,
                     LastName = model.LastName,
+                    Id = Guid.NewGuid(),
                 };
 
                 _context.Add(user);

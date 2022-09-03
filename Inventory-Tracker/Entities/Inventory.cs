@@ -11,10 +11,6 @@ namespace Inventory_Tracker.Entities
 
         public Guid ProductId { get; set; }
 
-        [Required]
-        [InverseProperty("Id")]
-        public Product Product { get; set; }
-
         public Int32 Stock { get; set; }
     }
 }
