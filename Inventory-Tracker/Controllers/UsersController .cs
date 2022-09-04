@@ -7,6 +7,7 @@ using Inventory_Tracker.Services;
 
 [ApiController]
 [Route("[controller]")]
+
 public class UsersController : ControllerBase
 {
     private IUserService _userService;

@@ -3,7 +3,7 @@ using Inventory_Tracker.Helpers;
 using Inventory_Tracker.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var MyAllowSpecificOrigins = "origin_policy";
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -18,6 +18,17 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddDbContext<global::Inventory_Tracker.DAL.DbContext>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("*")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,11 +36,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
-
-app.UseCors(x => x
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader());
+app.UseRouting();
+app.UseCors(MyAllowSpecificOrigins);
 
 // custom jwt auth middleware
 app.UseMiddleware<JwtMiddleware>();
