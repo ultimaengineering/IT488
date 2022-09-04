@@ -47,4 +47,16 @@ public class UsersController : ControllerBase
         var users = _userService.GetAll();
         return Ok(users);
     }
+
+    [HttpGet]
+    public IActionResult IsUserNameTaken([FromQuery] String username)
+    {
+        bool response = _userService.IsUsernameTaken(username);
+        if (response == null)
+        {
+            return BadRequest("Username Taken");
+        }
+
+        return Ok("username avalible");
+    }
 }
