@@ -19,13 +19,12 @@ COPY ["Inventory-Tracker/Inventory-Tracker.csproj", "Inventory-Tracker/"]
 RUN dotnet restore "Inventory-Tracker/Inventory-Tracker.csproj"
 COPY . .
 WORKDIR /src/Inventory-Tracker
-RUN dotnet sonarscanner begin /k:"IT488" /d:sonar.host.url="https://sonarcube.ultimaengineering.io"  /d:sonar.login="9a8fd0cb67f74e916fc90cff70f53a4e145e5529"
+RUN dotnet sonarscanner begin /k:"IT488" /d:sonar.host.url="https://sonarcube.ultimaengineering.io"  /d:sonar.login="e59632fc6e3537f6ec33ba9910cec4be851372fe"
 RUN dotnet build "Inventory-Tracker.csproj" -c Release -o /app/build
-RUN dotnet sonarscanner end /d:sonar.login="9a8fd0cb67f74e916fc90cff70f53a4e145e5529"
+RUN dotnet sonarscanner end /d:sonar.login="e59632fc6e3537f6ec33ba9910cec4be851372fe"
 
 FROM build AS publish
 RUN dotnet publish "Inventory-Tracker.csproj" -c Release -o /app/publish
-# RUN dotnet sonarscanner end /d:sonar.login="9a8fd0cb67f74e916fc90cff70f53a4e145e5529"
 
 FROM base AS final
 WORKDIR /app
