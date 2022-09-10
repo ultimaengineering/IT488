@@ -50,7 +50,7 @@ namespace Inventory_Tracker.Services
                 var token = generateJwtToken(user);
                 return new AuthenticateResponse(user, token);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

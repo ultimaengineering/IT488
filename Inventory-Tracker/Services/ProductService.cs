@@ -27,7 +27,7 @@ namespace Inventory_Tracker.Services
             _logger = logger;
         }
 
-        public Product GetProduct(Guid id)
+        public Product? GetProduct(Guid id)
         {
             _logger.LogTrace("Received product lookup request for {}", id);
             return _db.Products.FirstOrDefault(x => x.Id == id);
@@ -44,6 +44,7 @@ namespace Inventory_Tracker.Services
             {
                 Name = product.Name,
                 Description = product.Description,
+
             };
 
             _db.Products.Add(productEntity);

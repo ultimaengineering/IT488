@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory-Tracker", "Invent
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "school-db", "school-db\school-db.sqlproj", "{E924B6BA-2E76-4E55-820C-25B50AEDBC70}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5FC8A6E1-4B6C-4046-B2CE-8B9A2837A352}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

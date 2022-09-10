@@ -8,15 +8,10 @@ namespace Inventory_Tracker.DAL
 
         protected readonly IConfiguration Configuration;
 
-        public DbContext(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        public DbContext(IConfiguration configuration) => Configuration = configuration;
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Product> Products { get; set; }
-
-        public DbSet<Inventory> Inventory { get; set; }
+        public DbSet<User>? Users { get; set; }
+        public DbSet<Product>? Products { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
