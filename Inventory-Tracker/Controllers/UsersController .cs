@@ -32,6 +32,19 @@ public class UsersController : ControllerBase
     public IActionResult CreateUser([FromBody] UserCreationRequest model)
     {
         var response = _userService.CreateUser(model);
+        if (response == default)
+        {
+            return BadRequest("Username unavalible. Please pick another username.");
+        }
+
+        return Ok(response);
+    }
+
+    [Authorize]
+    [HttpPut]
+    public IActionResult UpdateUser([FromBody] UpdateUserRequest model)
+    {
+        var response = _userService.UpdateUser(model);
         if (response == null)
         {
             return BadRequest("Unable to process your request at this time.");
@@ -39,6 +52,7 @@ public class UsersController : ControllerBase
 
         return Ok(response);
     }
+
 
     [Authorize]
     [HttpGet]

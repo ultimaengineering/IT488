@@ -19,6 +19,7 @@ namespace Inventory_Tracker.Services
         IEnumerable<User> GetAll();
         User GetById(Guid id);
         User CreateUser(UserCreationRequest model);
+        User UpdateUser(UpdateUserRequest model);
     }
 
     public class UserService : IUserService
@@ -96,6 +97,44 @@ namespace Inventory_Tracker.Services
         }
         // helper methods
 
+
+        public User? UpdateUser(UpdateUserRequest model)
+        {
+            User? user = _context.Users.FirstOrDefault(x => x.Username == model.OldUsername);
+            if (user == null) // does the user exist
+            {
+                return default;
+            }
+            
+            if (model.Username != model.OldUsername) // We are updating the username, so double check for conflict.
+            {
+                User? checkForCollisionConflict = _context.Users.FirstOrDefault(x => x.Username == model.Username);
+                if (checkForCollisionConflict != default) // if there is a user, and we aren't updating ourselves. 
+                {
+                    return default;
+                }
+            }
+
+            try
+            {
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Username = model.Username;
+               
+                if (model.Password != default && model.Password != "")
+                {
+                    user.Password = BCryptNet.EnhancedHashPassword(model.Password, hashType: HashType.SHA384);
+                }
+                _context.SaveChanges();
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError("Unable to continue with creation {}", exception);
+                return null;
+            }
+            return user;
+        }
+
         private string generateJwtToken(User user)
         {
             // generate token that is valid for 7 days
@@ -103,12 +142,19 @@ namespace Inventory_Tracker.Services
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { 
+                    new Claim("id", user.Id.ToString()),
+                    new Claim("username", user.Username),
+                    new Claim("firstName", user.FirstName),
+                    new Claim("lastName", user.LastName)
+                }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
+        
     }
 }
