@@ -5,7 +5,8 @@
     [password] VARCHAR(250) NOT NULL, 
     [lastlogin] DATETIME NULL, 
     [firstname] VARCHAR(50) NULL, 
-    [lastname] VARCHAR(50) NULL
+    [lastname] VARCHAR(50) NULL, 
+    [account_created] DATETIME NULL DEFAULT GETDATE()
 )
 
 GO

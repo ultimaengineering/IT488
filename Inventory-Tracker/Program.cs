@@ -15,6 +15,7 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSet
 // configure DI for application services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ISalesService, SalesService>();
 builder.Services.AddDbContext<global::Inventory_Tracker.DAL.DbContext>();
 
 builder.Services.AddCors(options =>

@@ -59,6 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="CreateUsersTable.sql" />
+    <Build Include="Products.sql" />
+    <Build Include="sales.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="school-db.refactorlog" />
