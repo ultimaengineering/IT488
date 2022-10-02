@@ -61,6 +61,7 @@
     <Build Include="CreateUsersTable.sql" />
     <Build Include="Products.sql" />
     <Build Include="sales.sql" />
+    <Build Include="sales_summary_view.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="school-db.refactorlog" />

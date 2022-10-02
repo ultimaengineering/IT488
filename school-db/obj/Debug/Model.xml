@@ -301,6 +301,57 @@
 				</Entry>
 			</Relationship>
 		</Element>
+		<Element Type="SqlView" Name="[dbo].[sales_summary_view]">
+			<Property Name="QueryScript">
+				<Value><![CDATA[ SELECT  DATEPART(YEAR, TimeOfSale) as year,
+        sum(SalesPrice) as sales,
+        count(id) items_sold,
+        Closing_month_name = DateName( month , DateAdd( month , DATEPART(Month , TimeOfSale) , -1 ))
+FROM    sales
+GROUP BY DATEPART(YEAR, TimeOfSale), DATEPART(MONTH, TimeOfSale)]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[sales_summary_view].[year]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[sales_summary_view].[sales]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[sales_summary_view].[items_sold]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[dbo].[sales_summary_view].[Closing_month_name]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="QueryDependencies">
+				<Entry>
+					<References Name="[dbo].[sales]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[sales].[TimeOfSale]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[sales].[SalesPrice]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[sales].[Id]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="337" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE VIEW [dbo].[sales_summary_view]&#xD;&#xA;&#x9;AS" />
+				<Property Name="FooterContents" Value=";" />
+			</Annotation>
+		</Element>
 		<Element Type="SqlTable" Name="[dbo].[users]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
 			<Relationship Name="Columns">

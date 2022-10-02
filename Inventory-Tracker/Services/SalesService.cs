@@ -10,6 +10,7 @@ namespace Inventory_Tracker.Services
         IEnumerable<Sale> GetSales();
         Sale CreateSale (CreateSaleRequest request);
         void VoidSale(Guid id);
+        IEnumerable<SalesSummary>? SalesSummary();
     }
 
 
@@ -57,6 +58,11 @@ namespace Inventory_Tracker.Services
                 _db.Sales.Remove(sale);
                 _db.SaveChanges();
             }
+        }
+
+        public IEnumerable<SalesSummary>? SalesSummary()
+        {
+            return _db.SalesSummaries;
         }
     }
 }

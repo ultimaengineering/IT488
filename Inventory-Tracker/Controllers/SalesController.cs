@@ -63,5 +63,12 @@ namespace Inventory_Tracker.Controllers
             _salesService.VoidSale(id);
             return Ok();
         }
+
+        [Authorize]
+        [HttpGet("summary")]
+        public IActionResult SalesSummary()
+        {
+            return Ok(_salesService.SalesSummary());
+        }
     }
 }
