@@ -83,7 +83,8 @@ namespace Inventory_Tracker.Services
                     Password = BCryptNet.EnhancedHashPassword(model.Password, hashType: HashType.SHA384),
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    Id = Guid.NewGuid(),
+                    account_created = DateTime.Now,
+                Id = Guid.NewGuid(),
                 };
 
                 _context.Add(user);

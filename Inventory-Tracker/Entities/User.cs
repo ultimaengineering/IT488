@@ -16,6 +16,6 @@ namespace Inventory_Tracker.Entities
         [JsonIgnore]
         public string Password { get; set; }
 
-        public DateTime account_created { get; set; }
+        public DateTime? account_created { get; set; }
     }
 }
