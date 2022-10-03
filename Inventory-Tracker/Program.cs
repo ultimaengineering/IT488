@@ -20,10 +20,10 @@ builder.Services.AddDbContext<global::Inventory_Tracker.DAL.DbContext>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(
+    options.AddPolicy(name: MyAllowSpecificOrigins,
         policy =>
         {
-            policy.AllowAnyOrigin()
+            policy.WithOrigins("*")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
