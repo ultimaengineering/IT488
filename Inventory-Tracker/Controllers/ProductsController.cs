@@ -47,6 +47,7 @@ namespace Inventory_Tracker.Controllers
         [HttpPost]
         public IActionResult CreateProduct([FromBody] ProductCreationRequest request)
         {
+            Console.WriteLine(request);
             var product = _productService.CreateProduct(request);
             if (product == null)
             {

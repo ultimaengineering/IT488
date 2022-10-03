@@ -44,7 +44,9 @@ namespace Inventory_Tracker.Services
             {
                 Name = product.Name,
                 Description = product.Description,
-
+                InStock = product.InStock,
+                Price = product.Price,
+                Isbn = product.Isbn,
             };
 
             _db.Products.Add(productEntity);
